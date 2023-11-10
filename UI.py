@@ -48,12 +48,18 @@ class EncriptadorRSA(QWidget):
     layout.addWidget(self.encriptar, 3, 0)
     layout.addWidget(self.mensaje_encriptado, 4, 0, 1, 2)
 
+    self.setFixedSize(500, 300)
+
     self.setLayout(layout)
 
   def funcion_Prince(self):
-    p = int(self.p.text())
-    q = int(self.q.text())
-    e = int(self.e.text())
+    try:
+        p = int(round(float(self.p.text())))
+        q = int(round(float(self.q.text())))
+        e = int(round(float(self.e.text())))
+    except ValueError:
+        QMessageBox.warning(self, "Error", "Por favor, ingresa números válidos para p, q y e.")
+        return
     
     mensaje = self.mensaje.text()
 
