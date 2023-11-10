@@ -65,8 +65,13 @@ class EncriptadorRSA(QWidget):
       QMessageBox.warning(self, "Error", "El número q no es primo.")
       return
     
-    if e < 26:
-      QMessageBox.warning(self, "Error", "El número e debe ser igual o mayor a 26.")
+    if not p*q>26:
+      QMessageBox.warning(self, "Error", "p*q debe ser mayor a 26.")
+      return
+    
+    
+    if e < 1:
+      QMessageBox.warning(self, "Error", "El número e debe ser mayor a 1.")
       return
     
 
