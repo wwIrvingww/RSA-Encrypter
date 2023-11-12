@@ -82,15 +82,53 @@ class EncriptadorRSA(QWidget):
       return
     
 
-    mensaje_encriptado = Functions.mensaje(mensaje, e, p*q) # encriptar(mensaje, p, q, e) ACÁ IRIRÍA LO DE PRINCE
+    mensaje_encriptado = Functions.mensaje(mensaje, e, p*q) 
 
     self.mensaje_encriptado.setText(mensaje_encriptado)
 
 
 
 
-if __name__ == "__main__":
-  app = QApplication(sys.argv)
-  encriptador = EncriptadorRSA()
-  encriptador.show()
-  sys.exit(app.exec_())
+class DesencriptadorRSA(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle("Desencriptador RSA")
+
+        self.mensaje_encriptado = QLineEdit()
+        self.mensaje_encriptado.setPlaceholderText("Ingresa el mensaje encriptado")
+        self.e = QLineEdit()
+        self.e.setPlaceholderText("Ingresa el entero e")
+        self.n = QLineEdit()
+        self.n.setPlaceholderText("Ingresa el número n")
+
+        self.desencriptar = QPushButton("Desencriptar")
+        self.desencriptar.clicked.connect(self.funcion_desencriptar)
+
+        self.mensaje_desencriptado = QLineEdit()
+        self.mensaje_desencriptado.setReadOnly(True)
+
+        layout = QGridLayout()
+        layout.addWidget(self.mensaje_encriptado, 0, 0, 1, 2)
+        layout.addWidget(self.e, 1, 0)
+        layout.addWidget(self.n, 1, 1)
+        layout.addWidget(self.desencriptar, 2, 0)
+        layout.addWidget(self.mensaje_desencriptado, 3, 0, 1, 2)
+
+        self.setLayout(layout)
+        self.setFixedSize(500, 300)
+
+    def funcion_desencriptar(self):
+        try:
+            e = int(self.e.text())
+            n = int(self.n.text())
+        except ValueError:
+            QMessageBox.warning(self, "Error", "Por favor, ingresa números válidos para e y n.")
+            return
+
+        mensaje_encriptado = self.mensaje_encriptado.text()
+
+        mensaje_desencriptado = Functions.mensajeC(mensaje_encriptado, e, n)
+        self.mensaje_desencriptado.setText(mensaje_desencriptado)
