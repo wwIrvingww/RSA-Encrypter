@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLineEdit, QPushButton, QGridLayout, QMessageBox
+import Functions
 
 
 
@@ -81,7 +82,7 @@ class EncriptadorRSA(QWidget):
       return
     
 
-    mensaje_encriptado =mensaje # encriptar(mensaje, p, q, e) ACÁ IRIRÍA LO DE PRINCE
+    mensaje_encriptado = Functions.mensaje(mensaje, e, p*q) # encriptar(mensaje, p, q, e) ACÁ IRIRÍA LO DE PRINCE
 
     self.mensaje_encriptado.setText(mensaje_encriptado)
 
