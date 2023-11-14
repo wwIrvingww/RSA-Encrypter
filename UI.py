@@ -97,25 +97,31 @@ class DesencriptadorRSA(QWidget):
     def initUI(self):
         self.setWindowTitle("Desencriptador RSA")
 
+        # Elementos existentes
         self.mensaje_encriptado = QLineEdit()
         self.mensaje_encriptado.setPlaceholderText("Ingresa el mensaje encriptado")
         self.e = QLineEdit()
         self.e.setPlaceholderText("Ingresa el entero e")
         self.n = QLineEdit()
         self.n.setPlaceholderText("Ingresa el número n")
-
         self.desencriptar = QPushButton("Desencriptar")
         self.desencriptar.clicked.connect(self.funcion_desencriptar)
-
         self.mensaje_desencriptado = QLineEdit()
         self.mensaje_desencriptado.setReadOnly(True)
 
+        # Nuevo elemento para mostrar la clave privada
+        self.clave_privada = QLineEdit()
+        self.clave_privada.setReadOnly(True)
+        self.clave_privada.setPlaceholderText("Clave privada")
+
+        # Añadiendo elementos al layout
         layout = QGridLayout()
         layout.addWidget(self.mensaje_encriptado, 0, 0, 1, 2)
         layout.addWidget(self.e, 1, 0)
         layout.addWidget(self.n, 1, 1)
         layout.addWidget(self.desencriptar, 2, 0)
         layout.addWidget(self.mensaje_desencriptado, 3, 0, 1, 2)
+        layout.addWidget(self.clave_privada, 4, 0, 1, 2)  # Añade la clave privada al layout
 
         self.setLayout(layout)
         self.setFixedSize(500, 300)
@@ -124,11 +130,19 @@ class DesencriptadorRSA(QWidget):
         try:
             e = int(self.e.text())
             n = int(self.n.text())
+            if not n > 2525:
+                QMessageBox.warning(self, "Error", "n debe ser mayor a 2525")
+                return
+
         except ValueError:
             QMessageBox.warning(self, "Error", "Por favor, ingresa números válidos para e y n.")
             return
 
-        mensaje_encriptado = self.mensaje_encriptado.text()
+        # Calcula y muestra la clave privada
+        clave_priv = Functions.privateKey(e, n)
+        self.clave_privada.setText(str(clave_priv))
 
+        # Desencriptación del mensaje
+        mensaje_encriptado = self.mensaje_encriptado.text()
         mensaje_desencriptado = Functions.mensajeC(mensaje_encriptado, e, n)
         self.mensaje_desencriptado.setText(mensaje_desencriptado)

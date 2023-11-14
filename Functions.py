@@ -274,4 +274,3 @@ def desencryption(codified): #Write the codified message from the gotten numbers
         new_message = new_message[:-1]
 
     return new_message
-
