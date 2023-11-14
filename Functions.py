@@ -78,8 +78,6 @@ def factorizar(n):
     return factores
 
 def exponentiation(numbers,e,n): #Calculate module for power
-    if numbers[0] == "0":
-        numbers = numbers[1:]
     
     value = mpower2(int(numbers), int(e), int(n))
     if len(str(value)) == 4:
@@ -112,8 +110,8 @@ def obtain_key(dictionary, valueS): #Obtains key from value
 
 def mensaje(message,e,n): #Encodes the message and returns the message encoded 
     message = message.upper()
-    if len(message) % 2 == 0:
-        message = message.upper() + "H"
+    #if len(message) % 2 == 0:
+        #message = message.upper() + "H"
     codified = ""
     numbers = ""
     for i in message:
@@ -131,6 +129,9 @@ def mensaje(message,e,n): #Encodes the message and returns the message encoded
         if i == " ":
             codified = codified + " "
             numbers = ""
+
+    if len(numbers) == 2:
+        numbers = numbers + "07"
 
     codified = codified + exponentiation(numbers,e,n)
 
@@ -273,3 +274,4 @@ def desencryption(codified): #Write the codified message from the gotten numbers
         new_message = new_message[:-1]
 
     return new_message
+
