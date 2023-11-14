@@ -58,6 +58,7 @@ class EncriptadorRSA(QWidget):
         p = int(round(float(self.p.text())))
         q = int(round(float(self.q.text())))
         e = int(round(float(self.e.text())))
+        phi = ((p-1)*(q-1))
     except ValueError:
         QMessageBox.warning(self, "Error", "Por favor, ingresa números válidos para p, q y e.")
         return
@@ -80,6 +81,12 @@ class EncriptadorRSA(QWidget):
     if e < 1:
       QMessageBox.warning(self, "Error", "El número e debe ser mayor a 1.")
       return
+    
+    if Functions.euclides(e,phi):
+      QMessageBox.warning(self, "Error", "El mcd (e,phi) debe ser igual a 1.")
+      return
+      
+    
     
 
     mensaje_encriptado = Functions.mensaje(mensaje, e, p*q) 
@@ -133,7 +140,7 @@ class DesencriptadorRSA(QWidget):
             if not n > 2525:
                 QMessageBox.warning(self, "Error", "n debe ser mayor a 2525")
                 return
-
+              
         except ValueError:
             QMessageBox.warning(self, "Error", "Por favor, ingresa números válidos para e y n.")
             return
