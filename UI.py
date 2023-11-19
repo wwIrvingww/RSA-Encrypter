@@ -38,8 +38,11 @@ class EncriptadorRSA(QWidget):
     self.encriptar = QPushButton("Encriptar")
     self.encriptar.clicked.connect(self.funcion_Prince)
 
-    self.mensaje_encriptado = QLineEdit()
-    self.mensaje_encriptado.setReadOnly(True)
+    self.mensaje1_encriptado = QLineEdit()
+    self.mensaje1_encriptado.setReadOnly(True)
+
+    self.mensaje2_encriptado = QLineEdit()
+    self.mensaje2_encriptado.setReadOnly(True)
 
     layout = QGridLayout()
     layout.addWidget(self.mensaje, 0, 0, 1, 2)
@@ -47,7 +50,8 @@ class EncriptadorRSA(QWidget):
     layout.addWidget(self.q, 1, 1)
     layout.addWidget(self.e, 2, 0)
     layout.addWidget(self.encriptar, 3, 0)
-    layout.addWidget(self.mensaje_encriptado, 4, 0, 1, 2)
+    layout.addWidget(self.mensaje1_encriptado, 4, 0, 1, 2)
+    layout.addWidget(self.mensaje2_encriptado, 4, 0, 2, 2)
 
     self.setFixedSize(500, 300)
 
@@ -89,9 +93,11 @@ class EncriptadorRSA(QWidget):
     
     
 
-    mensaje_encriptado = Functions.mensaje(mensaje, e, p*q) 
+    mensaje1_encriptado = Functions.encryption(Functions.mensaje(mensaje, e, p*q)) 
+    mensaje2_encriptado = Functions.mensaje(mensaje, e, p*q)
 
-    self.mensaje_encriptado.setText(mensaje_encriptado)
+    self.mensaje1_encriptado.setText(mensaje1_encriptado)
+    self.mensaje2_encriptado.setText(mensaje2_encriptado)
 
 
 

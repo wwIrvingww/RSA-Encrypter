@@ -130,7 +130,7 @@ def mensaje(message,e,n): #Encodes the message and returns the message encoded
 
     codified = codified + exponentiation(numbers,e,n)
 
-    return encryption(codified)
+    return codified
 
     
 def encryption(codified): #Write the codified message from the gotten numbers
@@ -305,5 +305,3 @@ def desencryption(codified): #Write the codified message from the gotten numbers
         new_message = new_message[:-1]
 
     return new_message
-
-print(factorizar(2537))
