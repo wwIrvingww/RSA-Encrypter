@@ -41,15 +41,10 @@ def phiValue(p, q):
     return (p-1)*(q-1)
 
 #Euclides Algorithm for mcd = 1
-def euclides(e, phi): #phi > e
-    if (phi % e) != 0:
-        if e == 1:
-            return True
-        else:
-            return False
-    else:
-        mod = phi % e
-        euclides(mod, e)
+def euclides(a, b): #a -> e, b -> phi
+    while b:
+        a, b = b, a % b
+    return abs(a)
 
 def extended_gcd(a,b):
     if a == 0:
