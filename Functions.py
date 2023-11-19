@@ -226,7 +226,43 @@ def mensajeC(message, e, n): #Write the message from the gotten numbers
 
         return desencryption(new_message)
     else:
-        return "El mensaje no se puede decodificar"
+        new_message = ""
+        message_number = ""
+        for i in message:
+            if (len(message_number) % 4 != 0 and message_number != "") or (i == "0" and len(message_number) % 2 != 0):
+                message_number = message_number + i
+            elif len(message_number) % 4 == 0 and message_number != "":
+                if int(message_number) > 25:
+                    value = str(int(message_number))
+
+                    if len(value) == 3:
+                        message_number = "0" + value
+
+                    else: 
+                        message_number = value
+
+                new_message = new_message + exponentiation(message_number,d,n)
+                if i != " ":
+                    message_number = i
+                else:
+                    message_number = ""
+
+            elif message_number == "" and i != " ":
+                message_number = i
+
+            
+            if i == " ":
+                new_message = new_message + " "
+
+        if int(message_number) > 25:
+                    value = str(int(message_number))
+                    if len(value) == 1:
+                        message_number = "0" + value
+                    else: 
+                        message_number = value
+        new_message = new_message + exponentiation(message_number,d,n)
+
+        return desencryption(new_message)
     
 def desencryption(codified): #Write the codified message from the gotten numbers
     new_message = ""
@@ -269,3 +305,5 @@ def desencryption(codified): #Write the codified message from the gotten numbers
         new_message = new_message[:-1]
 
     return new_message
+
+print(factorizar(2537))
